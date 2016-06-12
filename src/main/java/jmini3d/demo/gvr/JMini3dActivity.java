@@ -1,19 +1,3 @@
-/*
- * Copyright 2014 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package jmini3d.demo.gvr;
 
 import android.content.Context;
@@ -40,7 +24,7 @@ public class JMini3dActivity extends GvrActivity implements GvrView.StereoRender
 
 	SceneController sceneController;
 	Renderer3d renderer3d;
-	MyScene scene;
+	int width, height;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,11 +33,7 @@ public class JMini3dActivity extends GvrActivity implements GvrView.StereoRender
 		initializeGvrView();
 
 		renderer3d = new Renderer3d(new ResourceLoader(this));
-		scene = new MyScene(this);
-		// For VR the camera target is always constant, the position can be changed
-		scene.camera.setPosition(0, 0, 0);
-		scene.camera.setTarget(0, 0, -1f);
-		scene.camera.setUpAxis(0, 1, 0);
+		sceneController = new MySceneController(this);
 	}
 
 	public void initializeGvrView() {
@@ -84,8 +64,8 @@ public class JMini3dActivity extends GvrActivity implements GvrView.StereoRender
 
 	@Override
 	public void onSurfaceChanged(int width, int height) {
-		scene.setViewPort(width, height);
-		scene.camera.updateMatrices();
+		this.width = width;
+		this.height = height;
 	}
 
 	@Override
@@ -95,7 +75,7 @@ public class JMini3dActivity extends GvrActivity implements GvrView.StereoRender
 
 	@Override
 	public void onNewFrame(HeadTransform headTransform) {
-		scene.update();
+		sceneController.updateScene(width, height);
 
 		// TODO Workaround for a R SDK bug, distortion correction disables GL_DEPTH_TEST
 		GLES20.glEnable(GLES20.GL_DEPTH_TEST);
@@ -103,6 +83,8 @@ public class JMini3dActivity extends GvrActivity implements GvrView.StereoRender
 
 	@Override
 	public void onDrawEye(Eye eye) {
+		Scene scene = sceneController.getScene();
+
 		scene.camera.updateMatrices();
 		MatrixUtils.multiply(eye.getPerspective(scene.camera.getNear(), scene.camera.getFar()), eye.getEyeView(), scene.camera.perspectiveMatrix);
 		MatrixUtils.multiply(scene.camera.perspectiveMatrix, scene.camera.modelViewMatrix, scene.camera.perspectiveMatrix);

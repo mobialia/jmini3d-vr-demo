@@ -22,6 +22,11 @@ public class MyScene extends Scene {
 	float angle = 0;
 
 	public MyScene(Context ctx) {
+		// For VR the camera target is always constant, the position can be changed
+		camera.setPosition(0, 0, 0);
+		camera.setTarget(0, 0, -1f);
+		camera.setUpAxis(0, 1, 0);
+
 		// The cube map texture follows the JMini3D standards
 		CubeMapTexture envMap = new CubeMapTexture(new String[]{"posx.png", "negx.png", "posy.png", "negy.png", "posz.png", "negz.png"});
 
