@@ -6,7 +6,7 @@ This is a simple Android VR (Virtual Reality) demo using:
 * Google VR SDK for Android (https://developers.google.com/vr/android/)
 * JMini3D: a 3D library for Android and GWT (https://github.com/albertoruibal/jmini3d)
 
-[[https://github.com/albertoruibal/jmini3d-vr-demo/blob/master/img/demo.jpeg|alt=Jmini3D_VR]]
+[[https://raw.githubusercontent.com/albertoruibal/jmini3d-vr-demo/master/img/demo.jpeg|alt=Jmini3D_VR]]
 
 Axis
 ====
