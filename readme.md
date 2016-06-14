@@ -8,7 +8,9 @@ This is a simple Android VR (Virtual Reality) demo using:
 
 ![Jmini3D VR Demo](https://raw.githubusercontent.com/albertoruibal/jmini3d-vr-demo/master/img/demo.jpeg)
 
-It is only a spinning monkey head, but it is a good base for other VR projects.
+It includes 2 scenes with anmated 3D buttons to change between scenes.
+
+To "click" a button you must look to it for one second.
 
 Axis
 ====

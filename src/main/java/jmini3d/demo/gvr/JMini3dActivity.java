@@ -1,9 +1,7 @@
 package jmini3d.demo.gvr;
 
-import android.content.Context;
 import android.opengl.GLES20;
 import android.os.Bundle;
-import android.os.Vibrator;
 
 import com.google.vr.sdk.base.Eye;
 import com.google.vr.sdk.base.GvrActivity;
@@ -15,14 +13,13 @@ import javax.microedition.khronos.egl.EGLConfig;
 
 import jmini3d.MatrixUtils;
 import jmini3d.Scene;
-import jmini3d.SceneController;
 import jmini3d.android.Renderer3d;
 import jmini3d.android.ResourceLoader;
 
 public class JMini3dActivity extends GvrActivity implements GvrView.StereoRenderer {
 	private static final String TAG = "JMini3dActivity";
 
-	SceneController sceneController;
+	MySceneController sceneController;
 	Renderer3d renderer3d;
 	int width, height;
 
@@ -75,6 +72,7 @@ public class JMini3dActivity extends GvrActivity implements GvrView.StereoRender
 
 	@Override
 	public void onNewFrame(HeadTransform headTransform) {
+		sceneController.setHeadTransform(headTransform);
 		sceneController.updateScene(width, height);
 
 		// TODO Workaround for a R SDK bug, distortion correction disables GL_DEPTH_TEST
