@@ -13,7 +13,8 @@ import jmini3d.material.Material;
  */
 public class VRTextureButton {
 
-	final static int TIME_CLICK = 1000;
+	final static int TIME_CLICK = 1000; // Time watching to the button after a "click" is made, in ms
+	final static float SCALE_ANIMATION_SPEED = 3f / 10000; // in scalefactor / ms
 
 	float width;
 	float heigth;
@@ -67,13 +68,13 @@ public class VRTextureButton {
 		float scale = object3d.getScale();
 		float scaleDiff = targetScale - scale;
 		if (scaleDiff > 0) {
-			scale += 0.001 * timeElapsed;
+			scale += SCALE_ANIMATION_SPEED * timeElapsed;
 			if (scale > targetScale) {
 				scale = targetScale;
 			}
 		}
 		if (scaleDiff < 0) {
-			scale -= 0.001 * timeElapsed;
+			scale -= SCALE_ANIMATION_SPEED * timeElapsed;
 			if (scale < targetScale) {
 				scale = targetScale;
 			}
