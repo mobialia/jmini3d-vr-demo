@@ -68,15 +68,16 @@ public class MySceneController implements SceneController {
 		long timeElapsed = lastTimeStamp == -1 ? 0 : currentTime - lastTimeStamp;
 		lastTimeStamp = currentTime;
 
+		// First animate the buttons (it can also generate an scene change)
+		buttonLeft.animate(timeElapsed);
+		buttonRight.animate(timeElapsed);
+
 		// Now update the shown scene
 		scenes.get(sceneIndex).setViewPort(width, height); // Mandatory
 		if (sceneIndex == 0) {
 			((SceneObjLoader) scenes.get(sceneIndex)).update(timeElapsed);
 		}
 
-		// And do not forget to animate the buttons
-		buttonLeft.animate(timeElapsed);
-		buttonRight.animate(timeElapsed);
 		return true;
 	}
 
