@@ -1,4 +1,4 @@
-JMini3D VR demo
+JMini3D VR Demo
 ===============
 
 This is a simple Android VR (Virtual Reality) demo using:
