@@ -32,7 +32,7 @@ public class SceneObjLoader extends Scene {
 	public SceneObjLoader(Context ctx) {
 		// For VR the camera target is always constant, the position can be changed
 		camera.setPosition(0, 0, 0);
-		camera.setTarget(0, 0, -1f);
+		camera.setTarget(camera.getPosition().x, camera.getPosition().y, camera.getPosition().z - 1f);
 		camera.setUpAxis(0, 1, 0);
 
 		CubeMapTexture envMap = new CubeMapTexture(new String[]{"posx.png", "negx.png", "posy.png", "negy.png", "posz.png", "negz.png"});

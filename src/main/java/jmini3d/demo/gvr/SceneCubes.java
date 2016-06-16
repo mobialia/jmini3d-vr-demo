@@ -27,7 +27,7 @@ public class SceneCubes extends Scene {
 	public SceneCubes(Context ctx) {
 		// For VR the camera target is always constant, the position can be changed
 		camera.setPosition(0, 0, 0);
-		camera.setTarget(0, 0, -1f);
+		camera.setTarget(camera.getPosition().x, camera.getPosition().y, camera.getPosition().z - 1f);
 		camera.setUpAxis(0, 1, 0);
 
 		Random r = new Random();
