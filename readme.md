@@ -7,7 +7,7 @@ This is a simple Android VR (Virtual Reality) demo using:
 
 ![Jmini3d VR Demo](https://raw.githubusercontent.com/albertoruibal/jmini3d-vr-demo/master/img/demo.jpeg)
 
-It includes 2 scenes with anmated 3D buttons to change between scenes.
+It includes 2 scenes with animated 3D buttons to change between scenes.
 
 To "click" a button you must look to it for one second.
 
