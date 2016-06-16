@@ -1,7 +1,6 @@
 package jmini3d.demo.gvr;
 
-import android.content.Context;
-
+import com.google.vr.sdk.base.GvrActivity;
 import com.google.vr.sdk.base.HeadTransform;
 
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ public class MySceneController implements SceneController {
 
 	VRTextureButton buttonLeft, buttonRight;
 
-	public MySceneController(Context ctx) {
+	public MySceneController(GvrActivity ctx) {
 		buttonLeft = new VRTextureButton(2, 2, "arrow_left.png", new VRTextureButton.VRClickListener() {
 			@Override
 			public void onClickListener() {
@@ -46,14 +45,23 @@ public class MySceneController implements SceneController {
 		});
 		buttonRight.setPosition(3, -3, -10);
 
+		// The distortion correction can be done at the vertex level adding a Shader Plugin to the scene
+		// An disabling the SDK correction in JMini3dActivity
+//		GvrView gvrView = ctx.getGvrView();
+//		float coefs[] = PincushionUtils.approximateInverse(gvrView.getGvrViewerParams().getDistortion());
+//		float maxRadius = PincushionUtils.getMaxRadius(gvrView.getScreenParams(), gvrView.getGvrViewerParams());
+//		ShaderPlugin lensDistortionCorrection = new LensDistortion(coefs[0], coefs[1], coefs[2], coefs[3], coefs[4], coefs[5], maxRadius * maxRadius);
+
 		Scene scene = new SceneObjLoader(ctx);
 		scene.addChild(buttonLeft.object3d);
 		scene.addChild(buttonRight.object3d);
+//		scene.addShaderPlugin(lensDistortionCorrection);
 		scenes.add(scene);
 
 		scene = new SceneCubes(ctx);
 		scene.addChild(buttonLeft.object3d);
 		scene.addChild(buttonRight.object3d);
+//		scene.addShaderPlugin(lensDistortionCorrection);
 		scenes.add(scene);
 	}
 

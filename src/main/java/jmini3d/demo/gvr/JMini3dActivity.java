@@ -11,6 +11,7 @@ import com.google.vr.sdk.base.Viewport;
 
 import javax.microedition.khronos.egl.EGLConfig;
 
+import jmini3d.JMini3d;
 import jmini3d.MatrixUtils;
 import jmini3d.Scene;
 import jmini3d.android.Renderer3d;
@@ -27,10 +28,13 @@ public class JMini3dActivity extends GvrActivity implements GvrView.StereoRender
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		// Use the standard OpenGL Axis system
+		JMini3d.useOpenglAxisSystem();
 
 		initializeGvrView();
 
 		renderer3d = new Renderer3d(new ResourceLoader(this));
+		renderer3d.setLogFps(true);
 		sceneController = new MySceneController(this);
 	}
 
@@ -85,8 +89,8 @@ public class JMini3dActivity extends GvrActivity implements GvrView.StereoRender
 
 	@Override
 	public void onDrawEye(Eye eye) {
-		MatrixUtils.multiply(eye.getPerspective(scene.camera.getNear(), scene.camera.getFar()), eye.getEyeView(), scene.camera.perspectiveMatrix);
-		MatrixUtils.multiply(scene.camera.perspectiveMatrix, scene.camera.modelViewMatrix, scene.camera.perspectiveMatrix);
+		MatrixUtils.copyMatrix(eye.getPerspective(scene.camera.getNear(), scene.camera.getFar()), scene.camera.perspectiveMatrix);
+		MatrixUtils.copyMatrix(eye.getEyeView(), scene.camera.modelViewMatrix);
 
 		renderer3d.render(scene);
 	}

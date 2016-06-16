@@ -25,13 +25,16 @@ public class SceneObjLoader extends Scene {
 
 	Object3d crossObject;
 
+	Vector3 forward = new Vector3();
+	Vector3 side = new Vector3();
+	Vector3 up = new Vector3();
+
 	public SceneObjLoader(Context ctx) {
 		// For VR the camera target is always constant, the position can be changed
 		camera.setPosition(0, 0, 0);
 		camera.setTarget(0, 0, -1f);
 		camera.setUpAxis(0, 1, 0);
 
-		// The cube map texture follows the JMini3D standards
 		CubeMapTexture envMap = new CubeMapTexture(new String[]{"posx.png", "negx.png", "posy.png", "negy.png", "posz.png", "negz.png"});
 
 		VariableGeometry skyboxGeometry = new SkyboxGeometry(300);
@@ -77,8 +80,10 @@ public class SceneObjLoader extends Scene {
 	public void update(long timeElapsed) {
 		// Rotate the object
 		angle += 0.001 * timeElapsed;
-		o3d.setRotationMatrix(new Vector3(1f * (float) Math.cos(angle), 0, -1 * (float) Math.sin(angle)),
-				new Vector3(0, 1, 0),
-				new Vector3(1 * (float) Math.sin(angle), 0, 1 * (float) Math.cos(angle)));
+		forward.setAll(1f * (float) Math.cos(angle), 0, -1 * (float) Math.sin(angle));
+		up.setAll(0, 1, 0);
+		side.setAll(1 * (float) Math.sin(angle), 0, 1 * (float) Math.cos(angle));
+
+		o3d.setRotationMatrix(forward, up, side);
 	}
 }

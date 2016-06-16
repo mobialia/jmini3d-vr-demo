@@ -43,21 +43,22 @@ public class SceneCubes extends Scene {
 		PhongMaterial material2 = new PhongMaterial(ambient, green, green);
 		PhongMaterial material3 = new PhongMaterial(ambient, blue, blue);
 
-		for (int i = 0; i < 100; i++) {
-			float x = r.nextFloat() * 50 - 25;
-			float y = r.nextFloat() * 50 - 25;
-			float z = r.nextFloat() * 50 - 25;
-			Geometry geometry = new BoxGeometry(1);
-			Object3d o3d;
-			if (i % 3 == 0) {
-				o3d = new Object3d(geometry, material1);
-			} else if (i % 3 == 1) {
-				o3d = new Object3d(geometry, material2);
-			} else {
-				o3d = new Object3d(geometry, material3);
+		Geometry geometry = new BoxGeometry(1.5f);
+
+		for (int i = 1; i < 6; i++) {
+			for (int j = 1; j < 6; j++) {
+				float x = (i - 3) * 4;
+				float y = (j - 3) * 4;
+				float z = -25;
+				Object3d o3d;
+				if ((i + j) % 2 == 0) {
+					o3d = new Object3d(geometry, material1);
+				} else {
+					o3d = new Object3d(geometry, material2);
+				}
+				o3d.setPosition(x, y, z);
+				addChild(o3d);
 			}
-			o3d.setPosition(x, y, z);
-			addChild(o3d);
 		}
 
 		// Add a cross to the HUD
