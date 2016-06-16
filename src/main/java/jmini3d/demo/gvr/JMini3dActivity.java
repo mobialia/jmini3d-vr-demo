@@ -81,7 +81,7 @@ public class JMini3dActivity extends GvrActivity implements GvrView.StereoRender
 		sceneController.updateScene(width, height);
 
 		scene = sceneController.getScene();
-		scene.camera.updateMatrices();
+		scene.camera.needsMatrixUpdate = false; // We update the cameras matrices here
 
 		// TODO Workaround for a R SDK bug, distortion correction disables GL_DEPTH_TEST
 		GLES20.glEnable(GLES20.GL_DEPTH_TEST);
@@ -89,8 +89,9 @@ public class JMini3dActivity extends GvrActivity implements GvrView.StereoRender
 
 	@Override
 	public void onDrawEye(Eye eye) {
-		MatrixUtils.copyMatrix(eye.getPerspective(scene.camera.getNear(), scene.camera.getFar()), scene.camera.perspectiveMatrix);
-		MatrixUtils.copyMatrix(eye.getEyeView(), scene.camera.modelViewMatrix);
+		MatrixUtils.copyMatrix(eye.getPerspective(scene.camera.getNear(), scene.camera.getFar()), scene.camera.projectionMatrix);
+		scene.camera.updateViewMatrix();
+		MatrixUtils.multiply(eye.getEyeView(), scene.camera.viewMatrix, scene.camera.viewMatrix);
 
 		renderer3d.render(scene);
 	}
