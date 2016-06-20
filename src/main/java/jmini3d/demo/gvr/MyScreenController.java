@@ -2,6 +2,7 @@ package jmini3d.demo.gvr;
 
 import com.google.vr.sdk.base.Eye;
 import com.google.vr.sdk.base.GvrActivity;
+import com.google.vr.sdk.base.GvrView;
 import com.google.vr.sdk.base.HeadTransform;
 
 import java.util.ArrayList;
@@ -9,6 +10,8 @@ import java.util.ArrayList;
 import jmini3d.Renderer3d;
 import jmini3d.Scene;
 import jmini3d.Vector3;
+import jmini3d.shader.LensDistortion;
+import jmini3d.shader.ShaderPlugin;
 
 /**
  * The scene controller selects the scene to show
@@ -49,23 +52,31 @@ public class MyScreenController implements VRScreenController {
 		});
 		buttonRight.setPosition(3, -3, -10);
 
+		//
 		// The distortion correction can be done at the vertex level adding a Shader Plugin to the scene
-		// An disabling the SDK correction in VRActivity
-//		GvrView gvrView = ctx.getGvrView();
-//		float coefs[] = PincushionUtils.approximateInverse(gvrView.getGvrViewerParams().getDistortion());
-//		float maxRadius = PincushionUtils.getMaxRadius(gvrView.getScreenParams(), gvrView.getGvrViewerParams());
-//		ShaderPlugin lensDistortionCorrection = new LensDistortion(coefs[0], coefs[1], coefs[2], coefs[3], coefs[4], coefs[5], maxRadius * maxRadius);
+		//
+		ShaderPlugin lensDistortionCorrection = null;
+		if (VRActivity.USE_VERTEX_DISPLACEMENT_LENS_DISTORTION) {
+			GvrView gvrView = ctx.getGvrView();
+			float coefs[] = PincushionUtils.approximateInverse(gvrView.getGvrViewerParams().getDistortion());
+			float maxRadius = PincushionUtils.getMaxRadius(gvrView.getScreenParams(), gvrView.getGvrViewerParams());
+			lensDistortionCorrection = new LensDistortion(coefs[0], coefs[1], coefs[2], coefs[3], coefs[4], coefs[5], maxRadius * maxRadius);
+		}
 
 		Scene scene = new ObjLoaderScene(ctx);
 		scene.addChild(buttonLeft.object3d);
 		scene.addChild(buttonRight.object3d);
-//		scene.addShaderPlugin(lensDistortionCorrection);
+		if (VRActivity.USE_VERTEX_DISPLACEMENT_LENS_DISTORTION) {
+			scene.addShaderPlugin(lensDistortionCorrection);
+		}
 		scenes.add(scene);
 
 		scene = new CubesScene(ctx);
 		scene.addChild(buttonLeft.object3d);
 		scene.addChild(buttonRight.object3d);
-//		scene.addShaderPlugin(lensDistortionCorrection);
+		if (VRActivity.USE_VERTEX_DISPLACEMENT_LENS_DISTORTION) {
+			scene.addShaderPlugin(lensDistortionCorrection);
+		}
 		scenes.add(scene);
 
 		sceneHUD = new CrossHudScene();

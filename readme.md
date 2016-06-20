@@ -1,6 +1,6 @@
 JMini3d VR Demo
 ===============
-This is a simple Android VR (Virtual Reality) demo using:
+This is a simple Android Virtual Reality (VR) demo for Google Cardboard using:
 
 * Google VR SDK for Android (https://developers.google.com/vr/android/)
 * JMini3d: a 3d library for Android and GWT (https://github.com/albertoruibal/jmini3d)
@@ -14,8 +14,15 @@ To "click" a button you must look to it for one second.
 Lens distortion
 ===============
 This demo uses the integrated lens distortion in the GVR SDK but it can also do the lens distortion
-correction using vertex displacement (as proposed in https://www.youtube.com/watch?v=yJVkdsZc9YA)
-calculated with the class PincushionUtils.
+correction using vertex displacement (as proposed in https://www.youtube.com/watch?v=yJVkdsZc9YA).
+This is faster, but it can cause artifacts in some scenes. 
+
+You can enable it setting:
+```
+public final static boolean USE_VERTEX_DISPLACEMENT_LENS_DISTORTION = true;
+```
+in the VRActivity. The auxiliar code is in the class PincushionUtils. 
+
 
 Axis
 ====

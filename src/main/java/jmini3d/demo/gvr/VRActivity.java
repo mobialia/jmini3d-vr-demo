@@ -18,6 +18,8 @@ import jmini3d.android.ResourceLoader;
 public class VRActivity extends GvrActivity implements GvrView.StereoRenderer {
 	private static final String TAG = "VRActivity";
 
+	public final static boolean USE_VERTEX_DISPLACEMENT_LENS_DISTORTION = false;
+
 	VRScreenController screenController;
 	Renderer3d renderer3d;
 	int width, height;
@@ -43,7 +45,7 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer {
 		gvrView.setRenderer(this);
 		gvrView.setTransitionViewEnabled(true);
 		gvrView.setAlignmentMarkerEnabled(true);
-		gvrView.setDistortionCorrectionEnabled(true);
+		gvrView.setDistortionCorrectionEnabled(!USE_VERTEX_DISPLACEMENT_LENS_DISTORTION);
 		gvrView.setLowLatencyModeEnabled(true);
 		gvrView.setScanlineRacingEnabled(true);
 		gvrView.setOnCardboardBackButtonListener(
