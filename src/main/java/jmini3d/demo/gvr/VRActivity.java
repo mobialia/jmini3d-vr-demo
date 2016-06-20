@@ -12,16 +12,13 @@ import com.google.vr.sdk.base.Viewport;
 import javax.microedition.khronos.egl.EGLConfig;
 
 import jmini3d.JMini3d;
-import jmini3d.MatrixUtils;
-import jmini3d.Scene;
 import jmini3d.android.Renderer3d;
 import jmini3d.android.ResourceLoader;
 
-public class JMini3dActivity extends GvrActivity implements GvrView.StereoRenderer {
-	private static final String TAG = "JMini3dActivity";
+public class VRActivity extends GvrActivity implements GvrView.StereoRenderer {
+	private static final String TAG = "VRActivity";
 
-	MySceneController sceneController;
-	Scene scene;
+	VRScreenController screenController;
 	Renderer3d renderer3d;
 	int width, height;
 
@@ -34,8 +31,7 @@ public class JMini3dActivity extends GvrActivity implements GvrView.StereoRender
 		initializeGvrView();
 
 		renderer3d = new Renderer3d(new ResourceLoader(this));
-		renderer3d.setLogFps(true);
-		sceneController = new MySceneController(this);
+		screenController = new MyScreenController(this);
 	}
 
 	public void initializeGvrView() {
@@ -65,23 +61,20 @@ public class JMini3dActivity extends GvrActivity implements GvrView.StereoRender
 	}
 
 	@Override
-	public void onSurfaceChanged(int width, int height) {
-		this.width = width;
-		this.height = height;
-	}
-
-	@Override
 	public void onSurfaceCreated(EGLConfig config) {
 		renderer3d.reset();
 	}
 
 	@Override
-	public void onNewFrame(HeadTransform headTransform) {
-		sceneController.setHeadTransform(headTransform);
-		sceneController.updateScene(width, height);
+	public void onSurfaceChanged(int width, int height) {
+		this.width = width;
+		this.height = height;
+		renderer3d.setViewPort(width, height);
+	}
 
-		scene = sceneController.getScene();
-		scene.camera.needsMatrixUpdate = false; // We update the cameras matrices here
+	@Override
+	public void onNewFrame(HeadTransform headTransform) {
+		screenController.onNewFrame(headTransform, true);
 
 		// TODO Workaround for a R SDK bug, distortion correction disables GL_DEPTH_TEST
 		GLES20.glEnable(GLES20.GL_DEPTH_TEST);
@@ -89,11 +82,7 @@ public class JMini3dActivity extends GvrActivity implements GvrView.StereoRender
 
 	@Override
 	public void onDrawEye(Eye eye) {
-		MatrixUtils.copyMatrix(eye.getPerspective(scene.camera.getNear(), scene.camera.getFar()), scene.camera.projectionMatrix);
-		scene.camera.updateViewMatrix();
-		MatrixUtils.multiply(eye.getEyeView(), scene.camera.viewMatrix, scene.camera.viewMatrix);
-
-		renderer3d.render(scene);
+		screenController.render(eye, renderer3d);
 	}
 
 	@Override

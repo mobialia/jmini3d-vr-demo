@@ -6,30 +6,25 @@ import jmini3d.Color4;
 import jmini3d.CubeMapTexture;
 import jmini3d.Object3d;
 import jmini3d.Scene;
-import jmini3d.Texture;
 import jmini3d.Vector3;
 import jmini3d.android.loader.ObjLoader;
 import jmini3d.geometry.SkyboxGeometry;
-import jmini3d.geometry.SpriteGeometry;
 import jmini3d.geometry.VariableGeometry;
 import jmini3d.light.AmbientLight;
 import jmini3d.light.PointLight;
 import jmini3d.material.Material;
 import jmini3d.material.PhongMaterial;
-import jmini3d.material.SpriteMaterial;
 
-public class SceneObjLoader extends Scene {
+public class ObjLoaderScene extends Scene {
 
 	Object3d o3d;
 	float angle = 0;
-
-	Object3d crossObject;
 
 	Vector3 forward = new Vector3();
 	Vector3 side = new Vector3();
 	Vector3 up = new Vector3();
 
-	public SceneObjLoader(Context ctx) {
+	public ObjLoaderScene(Context ctx) {
 		// For VR the camera target is always constant, the position can be changed
 		camera.setPosition(0, 0, 0);
 		camera.setTarget(camera.getPosition().x, camera.getPosition().y, camera.getPosition().z - 1f);
@@ -62,19 +57,6 @@ public class SceneObjLoader extends Scene {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		// Add a cross to the HUD
-		SpriteGeometry crossGeometry = new SpriteGeometry(1);
-		crossGeometry.addSprite(0, 0, 0, 0); // We do not know yet the screen dimensions, it is adjusted in onViewPortChanged
-		crossObject = new Object3d(crossGeometry, new SpriteMaterial(new Texture("cross.png")));
-		addHudElement(crossObject);
-	}
-
-	@Override
-	public void onViewPortChanged(int width, int height) {
-		// Set the HUD components position
-		int crossSize2 = height / 20;
-		((SpriteGeometry) crossObject.geometry3d).setSpritePositionSize(0, (float) (width / 2.0 - crossSize2), (float) (height / 2.0 - crossSize2), crossSize2 * 2, crossSize2 * 2);
 	}
 
 	public void update(long timeElapsed) {

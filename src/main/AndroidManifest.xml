@@ -30,7 +30,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name">
         <activity
-            android:name="jmini3d.demo.gvr.JMini3dActivity"
+            android:name=".VRActivity"
             android:label="@string/app_name"
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden|screenSize">

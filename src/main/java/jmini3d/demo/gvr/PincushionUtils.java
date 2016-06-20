@@ -7,7 +7,6 @@ import com.google.vr.sdk.base.ScreenParams;
 
 /**
  * Class to calculate the correction for the pincushion lens distortion of the VR headsets
- * <p/>
  * Code converted from the gvr-unity-sdk https://github.com/googlevr/gvr-unity-sdk
  */
 public class PincushionUtils {
