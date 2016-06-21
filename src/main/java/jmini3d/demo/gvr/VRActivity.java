@@ -2,6 +2,7 @@ package jmini3d.demo.gvr;
 
 import android.opengl.GLES20;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.vr.sdk.base.Eye;
 import com.google.vr.sdk.base.GvrActivity;
@@ -24,6 +25,13 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer {
 	Renderer3d renderer3d;
 	int width, height;
 
+	// stats-related
+	public static final int FRAMERATE_SAMPLEINTERVAL_MS = 5000;
+	private boolean logFps = false;
+	private long frameCount = 0;
+	private float fps = 0;
+	private long timeLastSample;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,6 +42,7 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer {
 
 		renderer3d = new Renderer3d(new ResourceLoader(this));
 		screenController = new MyScreenController(this);
+		setLogFps(true);
 	}
 
 	public void initializeGvrView() {
@@ -80,6 +89,10 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer {
 
 		// TODO Workaround for a R SDK bug, distortion correction disables GL_DEPTH_TEST
 		GLES20.glEnable(GLES20.GL_DEPTH_TEST);
+
+		if (logFps) {
+			doFps();
+		}
 	}
 
 	@Override
@@ -89,5 +102,40 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer {
 
 	@Override
 	public void onFinishFrame(Viewport viewport) {
+	}
+
+	/**
+	 * If true, framerate and memory is periodically calculated and Log'ed, and
+	 * gettable thru getFps()
+	 */
+	public void setLogFps(boolean b) {
+		logFps = b;
+
+		if (logFps) { // init
+			timeLastSample = System.currentTimeMillis();
+			frameCount = 0;
+		}
+	}
+
+	private void doFps() {
+		frameCount++;
+
+		long now = System.currentTimeMillis();
+		long delta = now - timeLastSample;
+		if (delta >= FRAMERATE_SAMPLEINTERVAL_MS) {
+			fps = frameCount / (delta / 1000f);
+
+			Log.v(TAG, "FPS: " + fps);
+
+			timeLastSample = now;
+			frameCount = 0;
+		}
+	}
+
+	/**
+	 * Returns last sampled framerate (logFps must be set to true)
+	 */
+	public float getFps() {
+		return fps;
 	}
 }
