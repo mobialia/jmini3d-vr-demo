@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import jmini3d.Renderer3d;
 import jmini3d.Scene;
 import jmini3d.Vector3;
+import jmini3d.demo.gvr.scenes.CrossHudScene;
+import jmini3d.demo.gvr.scenes.CubesScene;
+import jmini3d.demo.gvr.scenes.ObjLoaderScene;
 import jmini3d.shader.LensDistortion;
 import jmini3d.shader.ShaderPlugin;
 

@@ -1,4 +1,4 @@
-package jmini3d.demo.gvr;
+package jmini3d.demo.gvr.scenes;
 
 import android.content.Context;
 
