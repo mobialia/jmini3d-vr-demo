@@ -3,9 +3,9 @@ JMini3d VR Demo
 This is a simple Android Virtual Reality (VR) demo for Google Cardboard using:
 
 * Google VR SDK for Android (https://developers.google.com/vr/android/)
-* JMini3d: a 3d library for Android and GWT (https://github.com/albertoruibal/jmini3d)
+* JMini3d: a 3d library for Android and GWT (https://github.com/mobialia/jmini3d)
 
-![Jmini3d VR Demo](https://raw.githubusercontent.com/albertoruibal/jmini3d-vr-demo/master/img/demo.jpeg)
+![Jmini3d VR Demo](https://raw.githubusercontent.com/mobialia/jmini3d-vr-demo/master/img/demo.jpeg)
 
 It includes 2 scenes with animated 3D buttons to change between scenes.
 
