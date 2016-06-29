@@ -13,7 +13,7 @@ import jmini3d.Vector3;
 import jmini3d.demo.gvr.scenes.CrossHudScene;
 import jmini3d.demo.gvr.scenes.CubesScene;
 import jmini3d.demo.gvr.scenes.ObjLoaderScene;
-import jmini3d.shader.LensDistortion;
+import jmini3d.shader.LensDistortionShaderPlugin;
 import jmini3d.shader.ShaderPlugin;
 
 /**
@@ -63,14 +63,14 @@ public class MyScreenController implements VRScreenController {
 			GvrView gvrView = ctx.getGvrView();
 			float coefs[] = PincushionUtils.approximateInverse(gvrView.getGvrViewerParams().getDistortion());
 			float maxRadius = PincushionUtils.getMaxRadius(gvrView.getScreenParams(), gvrView.getGvrViewerParams());
-			lensDistortionCorrection = new LensDistortion(coefs[0], coefs[1], coefs[2], coefs[3], coefs[4], coefs[5], maxRadius * maxRadius);
+			lensDistortionCorrection = new LensDistortionShaderPlugin(coefs[0], coefs[1], coefs[2], coefs[3], coefs[4], coefs[5], maxRadius * maxRadius);
 		}
 
 		Scene scene = new ObjLoaderScene(ctx);
 		scene.addChild(buttonLeft.object3d);
 		scene.addChild(buttonRight.object3d);
 		if (VRActivity.USE_VERTEX_DISPLACEMENT_LENS_DISTORTION) {
-			scene.addShaderPlugin(lensDistortionCorrection);
+			scene.setShaderPlugin(lensDistortionCorrection);
 		}
 		scenes.add(scene);
 
@@ -78,7 +78,7 @@ public class MyScreenController implements VRScreenController {
 		scene.addChild(buttonLeft.object3d);
 		scene.addChild(buttonRight.object3d);
 		if (VRActivity.USE_VERTEX_DISPLACEMENT_LENS_DISTORTION) {
-			scene.addShaderPlugin(lensDistortionCorrection);
+			scene.setShaderPlugin(lensDistortionCorrection);
 		}
 		scenes.add(scene);
 

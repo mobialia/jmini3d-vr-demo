@@ -31,6 +31,6 @@ android {
 dependencies {
     compile 'com.google.gvr:common:0.8.1@aar'
     compile 'com.google.gvr:base:0.8.1@aar'
-    compile 'com.mobialia:jmini3d-core:0.9.2'
-    compile 'com.mobialia:jmini3d-android:0.9.2@aar'
+    compile 'com.mobialia:jmini3d-core:0.9.3'
+    compile 'com.mobialia:jmini3d-android:0.9.3@aar'
 }
