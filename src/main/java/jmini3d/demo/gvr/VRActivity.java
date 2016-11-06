@@ -53,9 +53,8 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer {
 
 		gvrView.setRenderer(this);
 		gvrView.setTransitionViewEnabled(true);
-		gvrView.setAlignmentMarkerEnabled(true);
 		gvrView.setDistortionCorrectionEnabled(!USE_VERTEX_DISPLACEMENT_LENS_DISTORTION);
-		gvrView.setOnCardboardBackButtonListener(
+		gvrView.setOnCardboardBackListener(
 				new Runnable() {
 					@Override
 					public void run() {
