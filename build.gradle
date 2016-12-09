@@ -4,14 +4,16 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'com.android.tools.build:gradle:2.2.3'
     }
 }
 
 repositories {
     mavenLocal()
     jcenter()
-    maven { url 'https://dl.bintray.com/mobialia/maven' }
+    maven {
+        url "http://google.bintray.com/googlevr"
+    }
 }
 
 apply plugin: 'com.android.application'
@@ -29,9 +31,8 @@ android {
 }
 
 dependencies {
-    compile 'com.google.gvr:common:1.0.2@aar'
-    compile 'com.google.gvr:base:1.0.2@aar'
-    compile 'com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7'
+    compile 'com.google.vr:sdk-common:1.10.0'
+    compile 'com.google.vr:sdk-base:1.10.0'
 
     compile 'com.mobialia:jmini3d-core:0.9.3'
     compile 'com.mobialia:jmini3d-android:0.9.3@aar'
