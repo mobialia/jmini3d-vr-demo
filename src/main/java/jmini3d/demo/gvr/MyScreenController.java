@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import jmini3d.Renderer3d;
 import jmini3d.Scene;
 import jmini3d.Vector3;
-import jmini3d.demo.gvr.scenes.CrossHudScene;
 import jmini3d.demo.gvr.scenes.CubesScene;
 import jmini3d.demo.gvr.scenes.ObjLoaderScene;
 import jmini3d.shader.LensDistortionShaderPlugin;
@@ -31,7 +30,6 @@ public class MyScreenController implements VRScreenController {
 	int sceneIndex = 0;
 
 	VRTextureButton buttonLeft, buttonRight;
-	CrossHudScene sceneHUD;
 
 	public MyScreenController(GvrActivity ctx) {
 		buttonLeft = new VRTextureButton(2, 2, "arrow_left.png", new VRTextureButton.VRClickListener() {
@@ -81,8 +79,6 @@ public class MyScreenController implements VRScreenController {
 			scene.setShaderPlugin(lensDistortionCorrection);
 		}
 		scenes.add(scene);
-
-		sceneHUD = new CrossHudScene();
 	}
 
 	@Override
@@ -116,7 +112,6 @@ public class MyScreenController implements VRScreenController {
 	@Override
 	public void render(Eye eye, Renderer3d renderer3d) {
 		eyeRender.render(scenes.get(sceneIndex), eye, renderer3d);
-		renderer3d.render(sceneHUD);
 	}
 
 }
