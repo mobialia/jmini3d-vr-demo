@@ -48,11 +48,12 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer {
 	public void initializeGvrView() {
 		setContentView(R.layout.common_ui);
 
-		GvrView gvrView = (GvrView) findViewById(R.id.gvr_view);
+		GvrView gvrView = findViewById(R.id.gvr_view);
 		gvrView.setEGLConfigChooser(8, 8, 8, 8, 16, 8);
 
 		gvrView.setRenderer(this);
 		gvrView.setTransitionViewEnabled(true);
+		gvrView.setNeckModelEnabled(true);
 		gvrView.setDistortionCorrectionEnabled(!USE_VERTEX_DISPLACEMENT_LENS_DISTORTION);
 		gvrView.setOnCardboardBackListener(
 				new Runnable() {
