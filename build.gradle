@@ -1,10 +1,11 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.2.1'
     }
 }
 
@@ -13,13 +14,14 @@ repositories {
     jcenter()
     maven { url "http://google.bintray.com/googlevr" }
     maven { url 'https://dl.bintray.com/mobialia/maven' }
+    google()
 }
 
 apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "27.0.2"
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         minSdkVersion 19
@@ -30,9 +32,9 @@ android {
 }
 
 dependencies {
-    compile 'com.google.vr:sdk-common:1.120.0'
-    compile 'com.google.vr:sdk-base:1.120.0'
+    implementation 'com.google.vr:sdk-audio:1.170.0'
+    implementation 'com.google.vr:sdk-base:1.170.0'
 
-    compile 'com.mobialia:jmini3d-core:0.9.3'
-    compile 'com.mobialia:jmini3d-android:0.9.3@aar'
+    implementation 'com.mobialia:jmini3d-core:0.9.3'
+    implementation 'com.mobialia:jmini3d-android:0.9.3@aar'
 }
