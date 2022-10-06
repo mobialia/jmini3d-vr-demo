@@ -31,6 +31,7 @@
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden|screenSize|uiMode|navigation|density"
             android:enableVrMode="@string/gvr_vr_mode_component"
+            android:exported="true"
             android:resizeableActivity="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
